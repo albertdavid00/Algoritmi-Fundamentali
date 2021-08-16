@@ -38,7 +38,7 @@ def BFS(startNode):
     return BFTree
 
 
-oriented = False
+oriented = True
 AdjacentLists = createLists(oriented)
 node = int(input("Nod: "))
 BFS(node)

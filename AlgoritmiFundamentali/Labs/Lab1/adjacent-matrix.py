@@ -3,8 +3,7 @@ def createMatrix(oriented=False):
     f = open("graf.in", "r")
     nodes, edges = [int(x) for x in f.readline().split()]
     matrix = []
-    for i in range(nodes):
-        matrix.append([0] * nodes)
+    matrix = [[0 for i in range(nodes)] for _ in range(nodes)]
     for i in range(edges):
         node1, node2 = [int(x) for x in f.readline().split()]
         matrix[node1 - 1][node2 - 1] = 1
@@ -39,7 +38,7 @@ def printList(adjacentList : list):
 
 
 if __name__ == "__main__":
-    oriented = True
+    oriented = False
     myMatrix = createMatrix(oriented)
     printMatrix(myMatrix)
     adjacentList = toAdjacentList(myMatrix)
