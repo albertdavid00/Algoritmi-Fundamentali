@@ -70,6 +70,7 @@ for i in range(n):
     if i == 0 and len(line[0]) != m:  # semihardcodat
         line[0] += (' ')
     matrix.append(line[0])
+
 Romeo = tuple()
 Julieta = tuple()
 for i in range(n):
