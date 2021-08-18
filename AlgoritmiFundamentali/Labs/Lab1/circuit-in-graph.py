@@ -75,6 +75,6 @@ if __name__ == "__main__":
                 print(list(map(lambda x: x+ 1, getCycle(dfTree, parent))))
                 break
     if not check:
-        print("Nu exista circuit")
+        print("Nu exista circuit => Realizabil")
 
 
