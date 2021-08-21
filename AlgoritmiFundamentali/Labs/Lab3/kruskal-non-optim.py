@@ -43,7 +43,7 @@ def unite(fstNode, sndNode):
 def printMST(mst):
 
     print("MSTree:", [(node1 + 1, node2 + 1, weight) for (node1, node2, weight) in mst])
-    print("Cost:", sum(list(map(lambda x : x[2], mst))))
+    print("Weight:", sum(list(map(lambda x : x[2], mst))))
 
 
 # Complexity: O(m^2 + m log n)
