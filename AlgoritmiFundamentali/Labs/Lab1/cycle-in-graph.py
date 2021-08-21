@@ -12,7 +12,7 @@ def createList(oriented: bool = False):
     return adjacentList
 
 def dfSearch(root):
-    global  n, dfTree, visited, adjacentList, check
+    global n, dfTree, visited, adjacentList, check
 
     for neighbour in adjacentList[root]:
         if check:

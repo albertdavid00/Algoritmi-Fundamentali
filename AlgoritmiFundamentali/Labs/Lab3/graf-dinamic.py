@@ -12,9 +12,6 @@ def getListAndEdges(oriented: bool = False):
         if not oriented:
             adjacentList[node2 - 1].append([node1 - 1, weight])
 
-    # for i in range(len(adjacentList)):
-    #     adjacentList[i].sort()
-
     return adjacentList, edges
 
 
@@ -23,27 +20,7 @@ def printList(adjacentList: list):
         resultList = [(node + 1, weight) for (node, weight) in adjacentList[i]]
         print(str(i + 1) + ": " + str(resultList))
 
-'''
- -- Normal method
-def repres(node):
-    global parent
 
-    while parent[node] != -1:
-        node = parent[node]
-
-    return node
-'''
-
-
-'''
--- Path compression method
- The tree can be compressed so that if the node's parent is not the root, then
- the root becomes the node's parent as we traverse the tree. => Faster time complexity.
- This does not affect the MST (it's not important that in reality there is no
- edge from the root to the node, as we only care that they are from the same component).
- Notice that we don't update the height because it would worsen the complexity and is not
- necessary.
-'''
 def repres(node):
     global parent
     if parent[node] == -1:
@@ -52,10 +29,7 @@ def repres(node):
     parent[node] = repres(parent[node])
     return parent[node]
 
-'''
-the height grows only if the trees are of the same height
-as a result of always attaching the smaller tree to the taller tree
-'''
+
 def unite(fstNode, sndNode):
     global n, parent, height
     rep1 = repres(fstNode)
@@ -79,7 +53,27 @@ def printMST(mst):
     print("Weight:", sum(list(map(lambda x: x[2], mst))))
 
 
-# Complexity: O(m log n)
+def dfSearch(root):
+    global n, visited, adjTree, finalNode, dfPath, check, parentTree
+    if check == True:
+        return
+    visited[root] = 1
+    for neighbour, weight in adjTree[root]:
+        if not visited[neighbour]:
+            parentTree[neighbour] = root
+            dfPath.append((root, neighbour, weight))
+            dfSearch(neighbour)
+
+            if check:
+                return
+            dfPath.pop()
+
+        elif parentTree[root] != neighbour:   # we got the cycle
+            dfPath.append((root, neighbour, weight))
+            check = True
+            return
+
+
 if __name__ == "__main__":
     oriented = False
     adjacentList, edges = getListAndEdges(oriented)
@@ -104,5 +98,38 @@ if __name__ == "__main__":
         if countEdgesInMST == n - 1:  # MST has n-1 edges
             break
 
-    print("MST Format: (node1, node2, weight)")
     printMST(minimumSpanningTree)
+    # subp. a) and b)
+    adjTree = [[] for _ in range(n)]
+    newEdge = (3, 5, 4)
+    newEdge = (newEdge[0] - 1, newEdge[1] - 1, newEdge[2])
+    minimumSpanningTree.append((newEdge[0], newEdge[1], newEdge[2]))
+    printMST(minimumSpanningTree)
+    for edge in minimumSpanningTree:
+        node1, node2, weight = edge[0], edge[1], edge[2]
+        adjTree[node1].append((node2, weight))
+
+        if not oriented:
+            adjTree[node2].append((node1, weight))
+
+    for node in range(len(adjTree)):
+        print(node + 1, ":", [(node + 1, weight) for node, weight in adjTree[node]])
+
+    startNode, finalNode = newEdge[0], newEdge[1]
+    parentTree = [-1 for _ in range(n)]
+    visited = [0 for _ in range(n)]
+    dfPath = []
+    check = False
+
+    dfSearch(startNode)
+
+    maxWeightEdge = list(filter(lambda e: e[2] == max(map(lambda e: e[2], dfPath)), dfPath))
+    print("Max weighted edge in cycle:", (maxWeightEdge[0][0] + 1, maxWeightEdge[0][1] + 1, maxWeightEdge[0][2]))
+    print("Cycle:", [(node1 + 1, node2 + 1, weight) for (node1, node2, weight) in dfPath])
+
+    if maxWeightEdge[0][2] == newEdge[2]:
+        print("New graph obtained by adding the new edge doesn't have a mst-weight smaller then the original")
+    else:
+        print("New graph obtained by adding the new edge does have a mst-weight smaller then the original")
+
+

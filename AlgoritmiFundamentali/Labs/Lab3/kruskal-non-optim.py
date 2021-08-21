@@ -53,7 +53,7 @@ if __name__ == "__main__":
     n = len(adjacentList)
     rep = initRepresentativeList()
     minimumSpanningTree = []
-    countEgdesInMST = 0
+    countEdgesInMST = 0
 
     edges.sort(key=lambda e: e[2])
 
@@ -63,9 +63,9 @@ if __name__ == "__main__":
         if reprez(fstNode) != reprez(sndNode):
             unite(fstNode, sndNode)
             minimumSpanningTree.append(edge)
-            countEgdesInMST += 1
+            countEdgesInMST += 1
 
-        if countEgdesInMST == n - 1:    # MST has n-1 edges
+        if countEdgesInMST == n - 1:    # MST has n-1 edges
             break
 
     printMST(minimumSpanningTree)

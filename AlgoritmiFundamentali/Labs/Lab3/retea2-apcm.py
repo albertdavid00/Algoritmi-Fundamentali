@@ -70,7 +70,7 @@ if __name__ == "__main__":
     height = [0 for _ in range(len(adjacentList))]
     parent = [-1 for _ in range(len(adjacentList))]
     minimumSpanningTree = []
-    countEgdesInMST = 0
+    countEdgesInMST = 0
 
     for i in range(n):
         if i != 0:
@@ -83,9 +83,9 @@ if __name__ == "__main__":
         if repres(fstNode) != repres(sndNode):
             unite(fstNode, sndNode)
             minimumSpanningTree.append(edge)
-            countEgdesInMST += 1
+            countEdgesInMST += 1
 
-        if countEgdesInMST == m:  # MST will have m edges now
+        if countEdgesInMST == m:  # MST will have m edges now
             break
 
     printMST(minimumSpanningTree)
