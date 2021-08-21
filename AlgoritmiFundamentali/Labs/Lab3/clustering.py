@@ -111,5 +111,4 @@ if __name__ == "__main__":
             for elem in cluster:
                 print(words[elem], end=" ")
             print()
-    print(separationDegree)
-    print(clusters)
+    print("Separation Degree:", separationDegree)

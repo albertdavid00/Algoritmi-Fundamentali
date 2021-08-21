@@ -61,13 +61,13 @@ TreeEdges = []
 for i in range(1, n):
     tata[i] = 1
 for i in range(n):
-    height[i] = n
+    height[i] = 1
 for edge in Edges:
     if Reprez(edge[0]) != Reprez(edge[1]):
         TreeEdges.append(edge)
         Unite(edge[0], edge[1])
         nrmsel += 1
-        if nrmsel == n + m - 1:
+        if nrmsel == m:
             break
 
 total = sum(map(lambda x: int(x[2]), TreeEdges))
