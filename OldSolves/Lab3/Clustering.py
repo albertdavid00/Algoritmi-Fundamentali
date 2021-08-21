@@ -28,7 +28,7 @@ def editDistance(str1, str2, m, n):
 def Reprez(node):
     global tata
     while tata[node - 1] != 0:
-        node = tata[node - 1];
+        node = tata[node - 1]
     return node
 
 def Unite(u, v):
@@ -71,8 +71,9 @@ for edge in Edges:
         TreeEdges.append(edge)
         Unite(edge[0], edge[1])
         nrmsel += 1
-        if nrmsel == n - k:
-            break
+    if nrmsel == n - k:
+        print(Edges[nrmsel + 1])
+        break
 
 gradSep = inf
 for i in range(n-1):
@@ -86,4 +87,7 @@ for cluster in clusters:
         for elem in cluster:
             print(words[elem], end= " ")
         print()
+print(TreeEdges)
+print("Weight:", sum(list(map(lambda x: x[2], TreeEdges))))
 print("Grad separare:", gradSep)
+print(clusters)

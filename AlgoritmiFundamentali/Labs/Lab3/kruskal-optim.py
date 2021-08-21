@@ -57,7 +57,7 @@ the height grows only if the trees are of the same height
 as a result of always attaching the smaller tree to the taller tree
 '''
 def unite(fstNode, sndNode):
-    global n, parent
+    global n, parent, height
     rep1 = repres(fstNode)
     rep2 = repres(sndNode)
 
