@@ -43,13 +43,13 @@ if __name__ == "__main__":
     oriented = False
     adjacentList, edges = getListAndEdges(oriented)
     n = len(adjacentList)
-
+    # input data
     k = 2
     controlPoints = [8, 9]
     startNode = 0
 
     controlPoints = [x - 1 for x in controlPoints]
-
+    # start algorithm
     parent = [-1 for _ in range(n)]
     distance = [math.inf for _ in range(n)]
     visited = [0 for _ in range(n)]
@@ -62,23 +62,29 @@ if __name__ == "__main__":
     for node in range(n):
         heappush(heap, (distance[node], parent[node], node))
 
-    while heap:
+    countNodes = 0
+    while heap and countNodes < n:
         minElement = heappop(heap)
         dist, par, node = minElement[0], minElement[1], minElement[2]
+
+        if not visited[node]:   # reduce number of iterations
+            visited[node] = 1
+            countNodes += 1
 
         for neighbour, weight in adjacentList[node]:
             if distance[node] + weight < distance[neighbour]:
                 distance[neighbour] = weight + distance[node]
                 parent[neighbour] = node
                 heappush(heap, (distance[neighbour], node, neighbour))
+    # end algorithm
 
     minWeight = min(list(map(lambda x: distance[x], controlPoints)))
     for point in controlPoints:
         if distance[point] == minWeight:
             path = getPath(parent, point)
             path.reverse()
-            print([x + 1 for x in path])
-            print(minWeight)
+            print("Path:", [x + 1 for x in path])
+            print("Weight:", minWeight)
 
     # dijkstraTree = []
     # for i in range(n):
