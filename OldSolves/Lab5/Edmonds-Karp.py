@@ -66,6 +66,7 @@ while BFS_unsat():
         node = abs(tata[node])
     P.append(s)
     P.reverse()
+    print(P)
     for i in range(len(P) - 1):
         if tata[P[i + 1]] >= 0:
             dif = myMatrix[P[i]][P[i + 1]][1] - myMatrix[P[i]][P[i + 1]][0]
